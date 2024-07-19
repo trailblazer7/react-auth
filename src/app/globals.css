@@ -21,13 +21,29 @@ body {
   background: linear-gradient(
       to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
+      #F4F9FF
     )
-    rgb(var(--background-start-rgb));
+    #E0EDFB;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.input-base {
+  @apply w-full p-2.5 pl-5 text-base text-gray-regular rounded-[10px] bg-white border-white placeholder:text-gray-light focus:border-gray-light focus:ring-0;
+}
+
+.input-success {
+  @apply border-green text-green;
+}
+
+.input-error {
+  @apply border-red text-red;
+}
+
+.button-base {
+  @apply bg-gradient-to-r from-[#70C3FF] to-[#4B65FF] rounded-[30px] text-base font-bold text-white px-[32px] py-[16px] w-4/6;
 }
