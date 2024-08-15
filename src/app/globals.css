@@ -33,7 +33,7 @@ body {
 }
 
 .input-base {
-  @apply w-full p-2.5 pl-5 text-base text-gray-regular rounded-[10px] bg-white border-white placeholder:text-gray-light focus:border-gray-light focus:ring-0;
+  @apply w-full p-2.5 pl-5 mb-2 text-base text-gray-regular rounded-[10px] bg-white border-white placeholder:text-gray-light focus:border-gray-light focus:ring-0;
 }
 
 .input-success {

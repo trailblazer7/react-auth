@@ -4,9 +4,10 @@ import ShowPasswordButton from './ShowPasswordButton';
 type Props = {
   value: string;
   onChangeCallback: ChangeEventHandler<HTMLInputElement>;
+  cssClasses: string;
 }
 
-const PasswordInput = ({ value, onChangeCallback }: Props) => {
+const PasswordInput = ({ value, onChangeCallback, cssClasses }: Props) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="relative">
@@ -15,7 +16,7 @@ const PasswordInput = ({ value, onChangeCallback }: Props) => {
         name="password"
         type={showPassword ? 'text' : 'password'}
         placeholder="Create your password"
-        className="input-base"
+        className={cssClasses}
         onChange={onChangeCallback}
         value={value}
       />
