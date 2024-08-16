@@ -33,7 +33,7 @@ body {
 }
 
 .input-base {
-  @apply w-full p-2.5 pl-5 mb-2 text-base text-gray-regular rounded-[10px] bg-white border-white placeholder:text-gray-light focus:border-gray-light focus:ring-0;
+  @apply w-full p-2.5 pl-5 mb-2 text-base text-gray-regular rounded-[10px] autofill:bg-white focus:bg-white bg-white border-white placeholder:text-gray-light focus:border-gray-light focus:ring-0;
 }
 
 .input-success {
@@ -46,4 +46,8 @@ body {
 
 .button-base {
   @apply bg-gradient-to-r from-[#70C3FF] to-[#4B65FF] rounded-[30px] text-base font-bold text-white px-[32px] py-[16px] w-4/6;
+}
+
+.button-base:disabled {
+  @apply from-[#7d868e] to-[#5a649a];
 }

@@ -1,9 +1,11 @@
 import { ChangeEvent } from "react";
 
+export type Field = 'email' | 'password';
 export interface Error {
   test: Function;
   message: string;
   error: boolean;
+  showOnErrorOnly?: boolean;
 }
 
 export interface ErrorStatus {
@@ -42,6 +44,6 @@ export interface UseFormReturn {
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void,
   handleSubmit: (e: React.SyntheticEvent<HTMLFormElement>) => void,
   errors: Errors,
-  isEmailSuccessful: boolean,
-  isPasswordSuccessful: boolean
+  isEmailValid: boolean,
+  isPasswordValid: boolean
 }

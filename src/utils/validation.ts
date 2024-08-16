@@ -22,7 +22,8 @@ export const validation: Validation = {
       {
         test: (t: string) => t?.length < 64,
         message: 'No more than 64 characters',
-        error: false
+        error: false,
+        showOnErrorOnly: true
       },
       {
         test: (t: string) => /^(?=.*[a-z])(?=.*[A-Z]).*$/.test(t),

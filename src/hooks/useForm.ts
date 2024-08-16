@@ -1,4 +1,4 @@
-import { UseFormInitialState, UseFormReturn, Error, ErrorStatus } from "../types/form";
+import { UseFormInitialState, UseFormReturn, ErrorStatus, Field } from "../types/form";
 import { ChangeEvent, useEffect, useState } from "react";
 
 export const useForm = (initialState: UseFormInitialState): UseFormReturn => {
@@ -7,8 +7,16 @@ export const useForm = (initialState: UseFormInitialState): UseFormReturn => {
   const [passwordErrors, setPasswordErrors] = useState<ErrorStatus[]>([]);
   const [submitTouched, setSubmitTouched] = useState(false);
 
-  const isEmailSuccessful = !!emailErrors.length && emailErrors.every(error => !error.error);
-  const isPasswordSuccessful = !!passwordErrors.length && passwordErrors.every(error => !error.error);
+  const isEmailValid = !!emailErrors.length && emailErrors.every(error => !error.error);
+  const isPasswordValid = !!passwordErrors.length && passwordErrors.every(error => !error.error);
+  const isFormValid = isEmailValid && isPasswordValid;
+
+  const resetForm = () => {
+    setValues(initialState.initialValues);
+    setEmailErrors([]);
+    setPasswordErrors([]);
+    setSubmitTouched(false);
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { target } = e;
@@ -31,13 +39,17 @@ export const useForm = (initialState: UseFormInitialState): UseFormReturn => {
   }
 
   const runValidation = () => {
-    const findErrors = (field: 'email' | 'password'): Array<ErrorStatus> => {
+    const findErrors = (field: Field): Array<ErrorStatus> => {
       let foundErrors: Array<ErrorStatus> = [];
 
       initialState.validation[field].errors.forEach(error => {
+        const testPassed = error.test(values[field]);
+
+        if (error.showOnErrorOnly && testPassed) return;
+
         foundErrors.push({
           message: error.message,
-          error: !error.test(values[field])
+          error: !testPassed
         })
       });
 
@@ -50,11 +62,7 @@ export const useForm = (initialState: UseFormInitialState): UseFormReturn => {
     setEmailErrors(foundEmailErrors);
     setPasswordErrors(foundPasswordErrors);
 
-    if (isEmailSuccessful || isPasswordSuccessful) {
-      return false;
-    } else {
-      return true;
-    }
+    return isFormValid;
   }
 
   useEffect(() => {
@@ -70,12 +78,11 @@ export const useForm = (initialState: UseFormInitialState): UseFormReturn => {
       setSubmitTouched(true);
     }
 
-    const isFormValid = runValidation();
-
     if (isFormValid) {
+      resetForm();
       alert('Form submitted successfully!');
     }
-    
+
     return isFormValid;
   }
 
@@ -87,7 +94,7 @@ export const useForm = (initialState: UseFormInitialState): UseFormReturn => {
       email: emailErrors,
       password: passwordErrors,
     },
-    isEmailSuccessful,
-    isPasswordSuccessful
+    isEmailValid,
+    isPasswordValid
   };
 }
