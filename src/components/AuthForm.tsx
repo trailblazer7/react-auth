@@ -23,7 +23,6 @@ export default function AuthForm() {
     isEmailValid,
     isPasswordValid 
   } = form;
-  const submitDisabled = !(values.email.length && values.password.length);
 
   const getCssClasses = (field: Field): string => {
     let cssClasses = 'input-base';
@@ -83,7 +82,6 @@ export default function AuthForm() {
       <div className="justify-center flex pt-5">
         <button
           type="submit"
-          disabled={submitDisabled}
           className="button-base"
         >
           Sign up
